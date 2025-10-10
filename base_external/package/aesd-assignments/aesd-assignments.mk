@@ -15,7 +15,7 @@ AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
-	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/finder-app
+	$(TARGET_CC) -o $(@D)/finder-app/writer $(@D)/finder-app/writer.c
 endef
 
 # TODO add your writer, finder and finder-test utilities/scripts to the installation steps below
