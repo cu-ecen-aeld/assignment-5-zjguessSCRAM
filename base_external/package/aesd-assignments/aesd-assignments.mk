@@ -4,7 +4,7 @@
 #
 ##############################################################
 
-AESD_ASSIGNMENTS_VERSION = 1c3c634f3676098b9dbe952a09fa4e5caf4a62e4
+AESD_ASSIGNMENTS_VERSION = f2743e6067cd6d5c3a6b6cfb54f2707f95c5066c
 AESD_ASSIGNMENTS_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-Christian-Bull.git
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
