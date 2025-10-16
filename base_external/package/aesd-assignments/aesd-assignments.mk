@@ -5,7 +5,7 @@
 ##############################################################
 
 AESD_ASSIGNMENTS_VERSION = f2743e6067cd6d5c3a6b6cfb54f2707f95c5066c
-AESD_ASSIGNMENTS_SITE = https://github.com/cu-ecen-aeld/assignments-3-and-later-zjguessSCRAM
+AESD_ASSIGNMENTS_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-zjguessSCRAM
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
