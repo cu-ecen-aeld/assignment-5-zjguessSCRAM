@@ -4,16 +4,16 @@
 #
 ##############################################################
 
-AESD_ASSIGNMENTS_VERSION = ced7fe98f009fe733aa4753cbe24f4b259ae665a
+AESD_ASSIGNMENTS_VERSION = 0898603aff176bca9ed48f6312c8e1b48df117da
 AESD_ASSIGNMENTS_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-zjguessSCRAM
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
-	# Build finder-app and server using Buildroot's cross-compiler
 	$(MAKE) CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/finder-app all
 	$(MAKE) CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/server all
 endef
+
 
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	# Install configuration files
