@@ -3,6 +3,8 @@
 #Author: Siddhant Jajoo
 
 source shared.sh
+export CROSS_COMPILE=aarch64-linux-gnu-
+export PATH=/usr/bin:$PATH   # add your toolchain path if not in /usr/bin
 
 EXTERNAL_REL_BUILDROOT=../base_external
 git submodule init
