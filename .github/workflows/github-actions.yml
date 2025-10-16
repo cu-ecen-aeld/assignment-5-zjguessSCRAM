@@ -5,26 +5,41 @@ on:
             - '*'
         branches:
             - '*'
-
 jobs:
     full-test:
+        container: cuaesd/aesd-autotest:24-assignment5-buildroot
         runs-on: self-hosted
-        timeout-minutes: 150
+        timeout-minutes: 600
         steps:
+          - uses: actions/checkout@v2
           - uses: webfactory/ssh-agent@v0.5.3
             with:
               ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-          - uses: actions/checkout@v3
+          - name: Checkout submodules
+            run: git submodule update --init --recursive
+          - name: Fix root SSH known_hosts
+            run: |
+              sudo mkdir -p /root/.ssh
+              sudo ssh-keygen -f "/root/.ssh/known_hosts" -R github.com || true
+              sudo ssh-keyscan github.com | sudo tee -a /root/.ssh/known_hosts
+              sudo chmod 600 /root/.ssh/known_hosts
+          - name: Configure SSH to ignore host key changes
+            run: |
+              mkdir -p $HOME/.ssh
+              echo -e "Host github.com\n  StrictHostKeyChecking accept-new\n  UserKnownHostsFile=/dev/null" >> $HOME/.ssh/config
+          - uses: actions/cache@v3
             with:
-              submodules: recursive
-
+              key: buildroot-${{ hashFiles('buildroot/.config') }}-${{ env.EXTERNAL_REL_BUILDROOT }}
+              path: |
+                buildroot/output/build
+                buildroot/output/host
+                buildroot/output/staging
+                buildroot/output/.br2*
+              compression: none
           - name: Run full test
             env:
-              GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+              GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
             run: ./full-test.sh
-
           - name: Cleanup
             if: always()
             run: ssh-add -D
-
