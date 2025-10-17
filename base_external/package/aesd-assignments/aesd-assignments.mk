@@ -4,16 +4,15 @@
 #
 ##############################################################
 
-AESD_ASSIGNMENTS_VERSION = 0898603aff176bca9ed48f6312c8e1b48df117da
+AESD_ASSIGNMENTS_VERSION = 3ab22b4a4fd3253bf0aab860e4e0f00422e0a398
 AESD_ASSIGNMENTS_SITE = git@github.com:cu-ecen-aeld/assignments-3-and-later-zjguessSCRAM
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
-	$(MAKE) CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/finder-app all
-	$(MAKE) CC=$(TARGET_CC) CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/server all
+	$(MAKE) CROSS_COMPILE=$(TARGET_CROSS) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/finder-app all
+	$(MAKE) CROSS_COMPILE=$(TARGET_CROSS) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS)" -C $(@D)/server all
 endef
-
 
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	# Install configuration files
@@ -25,7 +24,7 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 0755 $(@D)/finder-app/writer $(TARGET_DIR)/usr/bin/writer
 	$(INSTALL) -m 0755 $(@D)/finder-app/finder-test.sh $(TARGET_DIR)/usr/bin/finder-test.sh
 
-	# Install aesdsocket server binary (target-compiled)
+	# Install aesdsocket server binary (built for target)
 	$(INSTALL) -m 0755 $(@D)/server/aesdsocket $(TARGET_DIR)/usr/bin/aesdsocket
 
 	# Install startup script
